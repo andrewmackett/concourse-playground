@@ -11,4 +11,4 @@ set -x # print commands
 #git add .
 #git commit -m "Bumped date"
 
-packer build $1
+packer build -var aws_access_key=$1 -var aws_secret_key=$2 $3
