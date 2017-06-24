@@ -11,4 +11,4 @@ set -x # print commands
 #git add .
 #git commit -m "Bumped date"
 
-packer build $template
+packer build $1
