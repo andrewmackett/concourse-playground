@@ -13,5 +13,5 @@ inputs:
 #  - name: updated-gist
 
 run:
-  path: whoami
+  path: concourse-playground/tasks/packer-build.sh
 #  path: concourse-playground/tasks/packer-build.sh
