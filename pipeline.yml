@@ -1,11 +1,11 @@
 ---
 resources:
-#- name: wonga-bakery-repo
-#  type: git
-#  source:
-#    uri: git@github.com:QuickbridgeLtd/wonga-bakery.git
-#    branch: master
-#    private_key: ((wonga-bakery-repo-key))
+- name: wonga-bakery-repo
+  type: git
+  source:
+    uri: git@github.com:QuickbridgeLtd/wonga-bakery.git
+    branch: master
+    private_key: ((wonga-bakery-repo-key))
 
 - name: concourse-playground
   type: git
@@ -17,7 +17,8 @@ jobs:
 - name: job-packer-build
   serial: true
   plan:
-#  - get: wonga-bakery-repo
+  - get: wonga-bakery-repo
+    trigger: true
   - get: concourse-playground
   - task: execute-packer
     file: concourse-playground/tasks/packer-build.yml
