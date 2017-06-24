@@ -1,0 +1,25 @@
+---
+resources:
+- name: wonga-bakery-repo
+  type: git
+  source:
+    uri: git@github.com:QuickbridgeLtd/wonga-bakery.git
+    branch: master
+    private_key: ((wonga-bakery-repo-key))
+
+- name: concourse-playground
+  type: git
+  source:
+    uri: https://github.com/andrewmackett/concourse-playground.git
+
+
+jobs:
+- name: job-bump-date
+  serial: true
+  plan:
+  - get: resource-tutorial
+  - get: resource-gist
+  - task: bump-timestamp-file
+    file: resource-tutorial/12_publishing_outputs/bump-timestamp-file.yml
+  - put: resource-gist
+    params: {repository: updated-gist}
