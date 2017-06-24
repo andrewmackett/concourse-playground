@@ -14,4 +14,4 @@ set -x # print commands
 echo $1
 echo $2
 echo $3
-packer build -var 'aws_access_key=$1' -var 'aws_secret_key=$2' $3
+packer build -var '$1' -var '$2' $3

@@ -12,7 +12,6 @@ resources:
   source:
     uri: https://github.com/andrewmackett/concourse-playground.git
 
-
 jobs:
 - name: job-packer-build
   serial: true
