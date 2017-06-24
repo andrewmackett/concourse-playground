@@ -17,7 +17,7 @@ jobs:
 - name: job-packer-build
   serial: true
   plan:
-  - get: wonga-bakery-repo
+#  - get: wonga-bakery-repo
   - get: concourse-playground
   - task: execute-packer
     file: concourse-playground/tasks/packer-build.yml
