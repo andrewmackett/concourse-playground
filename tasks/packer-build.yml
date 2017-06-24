@@ -14,4 +14,4 @@ inputs:
 
 run:
   path: concourse-playground/tasks/packer-build-aws.sh
-  args: [{{ aws_access_key }},{{ aws_secret_key }},wonga-bakery-repo/templates/ubuntu-14.04/aws-ubuntu1404-ansible.json]
+  args: ["{{ aws_access_key }}","{{ aws_secret_key }}",wonga-bakery-repo/templates/ubuntu-14.04/aws-ubuntu1404-ansible.json]
