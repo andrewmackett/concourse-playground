@@ -6,7 +6,7 @@ image_resource:
   source: {repository: hashicorp/packer}
 
 inputs:
-  - name: wonga-bakery-repo
+#  - name: wonga-bakery-repo
   - name: wonga-concourse-repo
 
 #outputs:
@@ -14,4 +14,3 @@ inputs:
 
 run:
   path: wonga-concourse-repo/tasks/packer-build.sh
-  params: {template : wonga-bakery-repo/}

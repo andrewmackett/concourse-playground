@@ -1,11 +1,11 @@
 ---
 resources:
-- name: wonga-bakery-repo
-  type: git
-  source:
-    uri: git@github.com:QuickbridgeLtd/wonga-bakery.git
-    branch: master
-    private_key: ((wonga-bakery-repo-key))
+#- name: wonga-bakery-repo
+#  type: git
+#  source:
+#    uri: git@github.com:QuickbridgeLtd/wonga-bakery.git
+#    branch: master
+#    private_key: ((wonga-bakery-repo-key))
 
 - name: concourse-playground
   type: git
@@ -14,12 +14,12 @@ resources:
 
 
 jobs:
-- name: job-bump-date
+- name: job-packer-build
   serial: true
   plan:
-  - get: resource-tutorial
-  - get: resource-gist
-  - task: bump-timestamp-file
-    file: resource-tutorial/12_publishing_outputs/bump-timestamp-file.yml
-  - put: resource-gist
-    params: {repository: updated-gist}
+  - get: wonga-bakery-repo
+  - get: concourse-playground
+  - task: execute-packer
+    file: concourse-playground/tasks/packer-build.yml
+#  - put: resource-gist
+#    params: {repository: updated-gist}
