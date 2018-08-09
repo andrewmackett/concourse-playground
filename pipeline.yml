@@ -11,7 +11,7 @@ resources:
     uri: https://github.com/andrewmackett/concourse-playground.git
 
 jobs:
-- name: job-packer-build
+- name: job-packer-validate
   serial: true
   plan:
   - get: packer-example
