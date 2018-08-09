@@ -17,7 +17,9 @@ jobs:
   - get: packer-example
     trigger: true
   - get: concourse-playground
-  - task: execute-packer
+  - task: execute-packer-validate
+    file: concourse-playground/tasks/packer-validate.yml
+  - task: execute-packer-build
     file: concourse-playground/tasks/packer-build.yml
 #  - put: resource-gist
 #    params: {repository: updated-gist}
