@@ -10,8 +10,8 @@ inputs:
   - name: concourse-playground
 
 run:
-  path: packer validate
-  args: ["packer-example/example.json"]
+  path: packer
+  args: ["validate","packer-example/example.json"]
 #outputs:
 #  - name: updated-gist
 
