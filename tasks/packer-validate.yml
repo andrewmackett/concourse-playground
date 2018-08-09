@@ -11,7 +11,7 @@ inputs:
 
 run:
   path: packer
-  args: ["build","packer-example/example.json"]
+  args: ["validate","packer-example/example.json"]
 #outputs:
 #  - name: updated-gist
 
