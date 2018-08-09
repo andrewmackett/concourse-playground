@@ -1,11 +1,9 @@
 ---
 resources:
-- name: wonga-bakery-repo
+- name: packer-example
   type: git
   source:
-    uri: git@github.com:QuickbridgeLtd/wonga-bakery.git
-    branch: master
-    private_key: ((wonga-bakery-repo-key))
+    uri: https://github.com/andrewmackett/packer-example.git
 
 - name: concourse-playground
   type: git
@@ -16,7 +14,7 @@ jobs:
 - name: job-packer-build
   serial: true
   plan:
-  - get: wonga-bakery-repo
+  - get: packer-example
     trigger: true
   - get: concourse-playground
   - task: execute-packer
