@@ -1,10 +1,5 @@
 ---
 resource_types:
-- name: debian-sources
-  type: docker-image
-  source:
-    repository: jdub/debian-sources-resource
-
 - name: ami
   type: docker-image
   source:
@@ -25,14 +20,6 @@ resources:
     private_key: |-
       ((github_private_key.github_private_key))
 
-- name: ubuntu-bionic-security-sources
-  type: debian-sources
-  check_every: 1h
-  source:
-    arch: amd64
-    sources:
-    - deb http://security.ubuntu.com/ubuntu bionic-security main restricted universe multiverse
-
 #- name: ubuntu-bionic-ami
 #  type: ami
 #  check_every: 1h
@@ -46,20 +33,18 @@ resources:
 #      state: available
 #      name: ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*
 
-- name: hipchat-notification
-  type: hipchat-notification-resource
-  source:
-    hipchat_server_url: https://api.hipchat.com
-    token: ((hipchat_token.hipchat_token))
-    room_id: "4704598"
+#- name: hipchat-notification
+#  type: hipchat-notification-resource
+#  source:
+#    hipchat_server_url: https://api.hipchat.com
+#    token: ((hipchat_token.hipchat_token))
+#    room_id: "4704598"
 
 jobs:
-- name: job-packer-validate
+- name: job-packer
   serial: true
   plan:
   - get: packer-example
-    trigger: true
-  - get: ubuntu-bionic-security-sources
     trigger: true
 #  - get: ubuntu-bionic-ami
 #    trigger: true
@@ -73,14 +58,8 @@ jobs:
         - name: packer-example
       run:
         path: packer
-        args: ["validate","packer-example/templates/ubuntu-18.04/aws-ubuntu1804-ansible.json"]
+        args: ["validate","packer-example/templates/windows-server-2016/aws-win2016-core.json"]
 
-- name: job-packer-build
-  serial: true
-  plan:
-  - get: packer-example
-    trigger: true
-    passed: [job-packer-validate]
   - task: execute-packer-build
     config:
       platform: linux
@@ -91,15 +70,9 @@ jobs:
         - name: packer-example
       run:
         path: packer
-        args: ["build","packer-example/templates/ubuntu-18.04/aws-ubuntu1804-ansible.json"]
+        args: ["build","packer-example/templates/windows-server-2016/aws-win2016-core.json"]
       params:
         AWS_ACCESS_KEY_ID: ((aws_access_key.aws_access_key))
         AWS_SECRET_ACCESS_KEY: ((aws_secret_key.aws_secret_key))
         AWS_SESSION_TOKEN: ((aws_session_token.aws_session_token))
         AWS_DEFAULT_REGION: "eu-west-1"
-  - put: hipchat-notification
-    params:
-      from: "Concourse CI"
-      message: "New Ubuntu 18.04 AMI built with Packer"
-      color: green
-      notify: 0
